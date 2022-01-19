@@ -5,19 +5,36 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@material-ui/core": "^4.12.3",
+    "@mui/material": "^5.2.8",
+    "@mui/styles": "^5.2.3",
+    "crypto": "^1.0.1",
     "gatsby": "^4.5.2",
     "gatsby-plugin-gatsby-cloud": "^4.5.1",
     "gatsby-plugin-image": "^2.5.1",
     "gatsby-plugin-manifest": "^4.5.1",
+    "gatsby-plugin-material-ui": "^4.0.2",
     "gatsby-plugin-offline": "^5.5.1",
     "gatsby-plugin-react-helmet": "^5.5.0",
     "gatsby-plugin-sharp": "^4.5.1",
+    "gatsby-plugin-webfonts": "^2.2.1",
     "gatsby-source-filesystem": "^4.5.1",
+    "gatsby-theme-material-ui": "^5.1.0",
     "gatsby-transformer-sharp": "^4.5.0",
+    "json-api-normalize": "^1.1.5",
+    "jsonwebtoken": "^8.5.1",
+    "nprogress": "^0.2.0",
     "prop-types": "^15.8.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "react-redux": "^7.2.6",
+    "redux-devtools-extension": "^2.13.9",
+    "stream": "0.0.2",
+    "stream-browserify": "^3.0.0",
+    "util": "^0.12.4"
   },
   "devDependencies": {
     "prettier": "^2.5.1"
@@ -41,5 +58,6 @@
   },
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
-  }
+  },
+  "browser": { "crypto": false, "stream": false }
 }
