@@ -19,6 +19,8 @@ import CustomerStep from '../components/steps/CustomerStep'
 import DeliveryStep from '../components/steps/DeliveryStep'
 import PaymentStep from '../components/steps/PaymentStep'
 
+import {UPDATE_CHANGE_STEP} from '../redux/constants/checkoutConstants'
+
 const useStyles = makeStyles(theme => ({
   stepperContainer: {
     borderRadius: "4px",
@@ -43,15 +45,24 @@ export default function Checkout() {
   const current_step = useSelector(state => state.checkout.current_step)
   const requires_delivery = useSelector(state => state.checkout.requires_delivery)
   const order = useSelector(state => state.checkout.order)
+  // const checkout = useSelector(state => state.checkout)
   const requires_payment = useSelector(state => state.checkout.requires_payment)
   
   useEffect(() => {
     // console.log(current_step)
-  },[dispatch, order])
+    console.log(current_step, order)
+  },[dispatch, order, current_step])
 
   const handleNext = () => {
     // setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
+
+  const changeStep = (step) => {
+    if ( current_step === step ) {
+      return
+    }
+    dispatch({ type: UPDATE_CHANGE_STEP, payload: 1 })
+  }
 
   const handleBack = () => {
     // setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -65,230 +76,6 @@ export default function Checkout() {
       return requires_delivery ? 3 : 2
   } 
 
-
-  const Customer = ({steps, index}) => {
-    return (
-      <Box>
-        <Grid container spacing={3}>
-          <Grid item item xs={12}>
-            <TextField
-              required
-              id="email"
-              name="email"
-              label="Email"
-              fullWidth
-              autoComplete="Email"
-              variant="standard"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={<Checkbox color="primary" name="newsletter" value="yes" />}
-              label="Subscribe to Newsletter"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="firstName"
-              name="firstName"
-              label="First name"
-              fullWidth
-              autoComplete="given-name"
-              variant="standard"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="lastName"
-              name="lastName"
-              label="Last name"
-              fullWidth
-              autoComplete="family-name"
-              variant="standard"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="address1"
-              name="address1"
-              label="Address line 1"
-              fullWidth
-              autoComplete="shipping address-line1"
-              variant="standard"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="city"
-              name="city"
-              label="City"
-              fullWidth
-              autoComplete="shipping address-level2"
-              variant="standard"
-            />
-          </Grid>                  
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="country"
-              name="country"
-              label="Country"
-              fullWidth
-              autoComplete="shipping country"
-              variant="standard"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              id="stateCode"
-              name="stateCode"
-              label="State Code"
-              fullWidth
-              variant="standard"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="zip"
-              name="zip"
-              label="Zip / Postal code"
-              fullWidth
-              autoComplete="shipping postal-code"
-              variant="standard"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="phone"
-              name="phone"
-              label="Phone"
-              fullWidth
-              autoComplete=""
-              variant="standard"
-            />
-          </Grid>
-          
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={<Checkbox color="primary" name="saveAddress" value="yes" />}
-              label="Ship to different address"
-            />
-          </Grid>
-          
-          
-
-
-
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="firstName"
-              name="firstName"
-              label="First name"
-              fullWidth
-              autoComplete="given-name"
-              variant="standard"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="lastName"
-              name="lastName"
-              label="Last name"
-              fullWidth
-              autoComplete="family-name"
-              variant="standard"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="address1"
-              name="address1"
-              label="Address line 1"
-              fullWidth
-              autoComplete="shipping address-line1"
-              variant="standard"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="city"
-              name="city"
-              label="City"
-              fullWidth
-              autoComplete="shipping address-level2"
-              variant="standard"
-            />
-          </Grid>                  
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="country"
-              name="country"
-              label="Country"
-              fullWidth
-              autoComplete="shipping country"
-              variant="standard"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              id="stateCode"
-              name="stateCode"
-              label="State Code"
-              fullWidth
-              variant="standard"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="zip"
-              name="zip"
-              label="Zip / Postal code"
-              fullWidth
-              autoComplete="shipping postal-code"
-              variant="standard"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="phone"
-              name="phone"
-              label="Phone"
-              fullWidth
-              autoComplete=""
-              variant="standard"
-            />
-          </Grid>
-
-
-          <Grid item xs={12} sm={6}>
-            <Button
-              variant="contained"
-              disabled = {false}
-              onClick={handleNext}
-              fullWidth
-            >
-              {index === steps.length - 1 ? 'Finish' : 'CONTINUE TO DELIVERY'}
-            </Button>
-          </Grid>
-        </Grid>
-
-      </Box>
-    )
-  }
-
   const completed = (step) => {
     return current_step - 1 > step
   }
@@ -296,31 +83,33 @@ export default function Checkout() {
   return (
     <Box className={classes.stepperContainer}>
       <Stepper activeStep={current_step-1} orientation="vertical" >
-        <Step key='CustomerStep' active={true} completed={ completed(0) }>
+        <Step key='CustomerStep' active={true} completed={completed(0) }>
           <StepLabel
               optional={(
                   <Typography variant="caption">{'Billing information and shipping address'}</Typography>
               )}
             >
+              <div onClick={() => changeStep(1)}>
             { 'Customer' }
             {
               !completed(0) ? 
                 '' : 
                 (
-                  <span>
+                  <span >
                     &mdash;
                     <a>Edit</a>
                   </span>
                 )             
             }
+              </div>
           </StepLabel>
           <StepContent className={classes.StepContent}>
-            <CustomerStep completed = { completed(0) } order= {order} />
+            <CustomerStep completed = { completed(0) } order= {order}/>
           </StepContent>
         </Step>
         
         {
-          requires_delivery ? 
+          requires_delivery === true ?
         (<Step key='DeliveryStep' active={ current_step - 1 > 0 } completed={ completed(1) }>
           <StepLabel
               optional={(
@@ -340,7 +129,7 @@ export default function Checkout() {
             }
           </StepLabel>
           <StepContent className={classes.StepContent}>
-            <DeliveryStep completed = { completed(1) } order= {order} />
+            <DeliveryStep completed = { completed(1)  && current_step > 2 } order= {order} />
           </StepContent>
         </Step>) : (<></>)
         }

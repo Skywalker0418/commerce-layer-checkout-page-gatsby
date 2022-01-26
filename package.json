@@ -8,6 +8,7 @@
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@material-ui/core": "^4.12.3",
+    "@mui/lab": "^5.0.0-alpha.66",
     "@mui/material": "^5.2.8",
     "@mui/styles": "^5.2.3",
     "crypto": "^1.0.1",
@@ -59,5 +60,8 @@
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },
-  "browser": { "crypto": false, "stream": false }
+  "browser": {
+    "crypto": false,
+    "stream": false
+  }
 }

@@ -17,7 +17,7 @@ import {
   UPDATE_AUTH_REFRESH_TOKEN,
   UPDATE_CUSTOMER_ADDRESSES,
   UPDATE_CUSTOMER_SUBSCRIPTION_ID,
-  DISABLE_CUSTOMER_SUBCRIPTION,
+  DISABLE_CUSTOMER_SUBSCRIPTION,
 } from "../constants/checkoutConstants"
 
 import APIService from '../../services/APIService'
@@ -62,7 +62,6 @@ export const setOrderCustomerEmail = () => async (dispatch, getState) => {
       const {
   	    checkout: { order },
   	  } = getState()
-      console.log(order.customer_email)
       return APIService.updateOrder(order, {
         customer_email: order.customer_email
       })
@@ -88,7 +87,7 @@ export const handleCustomerSubscription = () => async (dispatch, getState) => {
           dispatch({type: 'UPDATE_CUSTOMER_SUBSCRIPTION_ID', payload:customerSubscription.id})
         })
         .catch(_ => {
-          dispatch({type: DISABLE_CUSTOMER_SUBCRIPTION})
+          dispatch({type: DISABLE_CUSTOMER_SUBSCRIPTION})
         })
         .finally(() => {
           NProgress.done()
@@ -106,9 +105,9 @@ export const setOrderGiftCardOrCouponCode = () => async (dispatch, getState) => 
       })
         .then(order => {
           dispatch({ type: UPDATE_ORDER, payload: order })
-	      dispatch({ type: UPDATE_REQUIRES_PAYMENT, payload: getRequiresPayment(order) })
-	      dispatch({ type: UPDATE_APPLY_COUPON_ERROR, payload: null })
-	      dispatch({ type: UPDATE_GIFTCARD_OR_COUPON_APPLIED, payload: true })
+          dispatch({ type: UPDATE_REQUIRES_PAYMENT, payload: getRequiresPayment(order) })
+          dispatch({ type: UPDATE_APPLY_COUPON_ERROR, payload: null })
+          dispatch({ type: UPDATE_GIFTCARD_OR_COUPON_APPLIED, payload: true })
           
           return order
         })
@@ -125,22 +124,22 @@ export const setOrderGiftCardOrCouponCode = () => async (dispatch, getState) => 
     }
 
 export const setOrderAddresses = () => async (dispatch, getState) => {
-    const {
-		checkout: { order },
-	} = getState()
-
-      return APIService.updateOrderAddresses(order)
-        .then(order => {
-          dispatch({ type: UPDATE_ORDER, payload: order })
-          return order
-        })
-        .catch(response => {
-        	dispatch({type: UPDATE_SET_ADDRESSES_ERROR, payload: response.data.errors[0].meta.error})
-        })
-        .finally(() => {
-          dispatch({type: UPDATE_BUTTON_LOADING_CUSTOMER, payload: false})
-        })
-    }
+  const {
+    checkout: { order },
+  } = getState()
+  
+  return APIService.updateOrderAddresses(order)
+    .then(update_order => {
+      dispatch({ type: UPDATE_ORDER, payload: update_order })
+      return update_order
+    })
+    .catch(response => {
+      dispatch({type: UPDATE_SET_ADDRESSES_ERROR, payload: response.data.errors[0].meta.error})
+    })
+    .finally(() => {
+      dispatch({type: UPDATE_BUTTON_LOADING_CUSTOMER, payload: false})
+    })
+}
 
 export const setShipmentShippingMethod = (payload) => async (dispatch, getState) => {
 	dispatch({type: UPDATE_BUTTON_LOADING_DELIVERY, payload: true})

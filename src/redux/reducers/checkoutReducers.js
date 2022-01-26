@@ -17,7 +17,20 @@ import {
   UPDATE_AUTH_REFRESH_TOKEN,
   UPDATE_CUSTOMER_ADDRESSES,
   UPDATE_CUSTOMER_SUBSCRIPTION_ID,
-  DISABLE_CUSTOMER_SUBCRIPTION,
+  DISABLE_CUSTOMER_SUBSCRIPTION,
+  UPDATE_CUSTOMER_EMAIL,
+  UPDATE_CUSTOMER_SUBSCRIPTION_CHECKED,
+  UPDATE_INVALID_SHIPPING_ADDRESS,
+  UPDATE_INVALID_BILLING_ADDRESS,
+  UPDATE_INVALID_CUSTOMER,
+  UPDATE_SHIPPING_ADDRESS,
+  UPDATE_BILLING_ADDRESS,
+  UPDATE_CHANGE_STEP,
+  UPDATE_ERROR_APPLY_GIFT_CARD_OR_COUPON,
+  UPDATE_ERROR_SET_ADDRESSES,
+  UPDATE_ERROR_PLACE_ORDER,
+  UPDATE_SHIP_TO_DIFFERENT_ADDRESS_REQUIRED,
+  UPDATE_SHIP_TO_DIFFERENT_ADDRESS
 } from "../constants/checkoutConstants"
 
 const initialState = {
@@ -63,8 +76,12 @@ const initialState = {
 
 
 export const checkoutReducer = (state = initialState, action) => {
+  // console.log(action.type)
+  let validations = state.validations
+  // let errors = state.errors
+  // let order = state.order
   switch (action.type) {
-    case UPDATE_ORDER:      
+    case UPDATE_ORDER:    
       return {
         ...state,
         order: action.payload,
@@ -80,7 +97,6 @@ export const checkoutReducer = (state = initialState, action) => {
         requires_delivery: action.payload
       }
     case  UPDATE_REQUIRES_PAYMENT:
-      console.log(state)
       return {
         ...state,
         requires_payment: action.payload
@@ -163,18 +179,98 @@ export const checkoutReducer = (state = initialState, action) => {
         ...state,
         customer: { ...customer, addresses : action.payload }
       }
+    
+    case UPDATE_CUSTOMER_EMAIL:
+      let order_ = state.order
+      return {
+        ...state,
+        order: { ...order_, customer_email : action.payload }
+      }
+    case UPDATE_CUSTOMER_SUBSCRIPTION_CHECKED:
+      let customer_subscription_ = state.customer_subscription
+      return {
+        ...state,
+        customer_subscription: { ...customer_subscription_, checked : action.payload }
+      }
+
     case UPDATE_CUSTOMER_SUBSCRIPTION_ID:
       let customer_subscription = state.customer_subscription
       return {
         ...state,
         customer_subscription: { ...customer_subscription, id : action.payload }
       }
-    case DISABLE_CUSTOMER_SUBCRIPTION: 
-      // let customer_subscription = state.customer_subscription
+    case DISABLE_CUSTOMER_SUBSCRIPTION: 
       return {
         ...state,
         customer_subscription: { ...customer_subscription, disabled : true }
       }
+    case UPDATE_INVALID_BILLING_ADDRESS:
+      return {
+        ...state,
+        validations: {...validations, invalid_billing_address: action.payload}
+      }
+      break
+    case UPDATE_INVALID_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        validations: {...validations, invalid_shipping_address: action.payload}
+      }
+      break
+    case UPDATE_INVALID_CUSTOMER:
+      return {
+        ...state,
+        validations: {...validations, invalid_customer: action.payload}
+      }
+      break
+    case UPDATE_BILLING_ADDRESS:
+      return {
+        ...state,
+        order: {...state.order, billing_address: {...state.order.billing_address, ...action.payload}}
+      }
+      break
+    case UPDATE_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        order: {...state.order, shipping_address: {...state.order.shipping_address, ...action.payload}}
+      }
+      break
+    case UPDATE_CHANGE_STEP:
+      return {
+        ...state,
+        current_step: action.payload
+      }
+      break
+    case UPDATE_ERROR_APPLY_GIFT_CARD_OR_COUPON:
+      return {
+        ...state,
+        errors: {...errors, apply_gift_card_or_coupon: action.payload}
+      }
+      break
+    case UPDATE_ERROR_SET_ADDRESSES:
+      return {
+        ...state,
+        errors: {...errors, set_addresses: action.payload}
+      }
+      break
+    case UPDATE_ERROR_PLACE_ORDER:
+      return {
+        ...state,
+        errors: {...errors, place_order: action.payload}
+      }
+      break
+    case UPDATE_SHIP_TO_DIFFERENT_ADDRESS_REQUIRED:
+      return {
+        ...state,
+        order: {...state.order, ship_to_different_address_required: action.payload}
+      }
+      break 
+    case UPDATE_SHIP_TO_DIFFERENT_ADDRESS:
+      console.log('dispatch event: ship_to_different_address', action.payload)
+      return {
+        ...state,
+        order: {...state.order, ship_to_different_address: action.payload}
+      }
+      break 
     default:
       return state;
   }

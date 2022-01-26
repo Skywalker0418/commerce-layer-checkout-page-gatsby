@@ -126,6 +126,7 @@ const getOrder = orderId => {
     .get('/orders/' + orderId + '?include=' + orderIncludes.join(','))
     .then(response => {
       let order = normalizedOrder(response.data, response)
+      console.log('order', order)
       return normalizedOrder(order, response)
     })
     .catch(error => {
@@ -334,11 +335,13 @@ const updateShippingAddressFields = (order, shippingAddress) => {
 }
 
 const updateOrderAddresses = order => {
+  console.log(order, 'api order')
   return updateOrCreateBillingAddress(order)
     .then(billingAddress => {
       return updateBillingAddressFields(order, billingAddress)
         .then(updatedOrder => {
           if (order.ship_to_different_address) {
+            
             return updateOrCreateShippingAddress(order).then(
               shippingAddress => {
                 return updateShippingAddressFields(order, shippingAddress).then(
