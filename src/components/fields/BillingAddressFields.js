@@ -21,7 +21,6 @@ export default function BillingAddressFields() {
   const dispatch = useDispatch()
 
   const shipping_country_code_lock = checkout.order.shipping_country_code_lock
-  // const _save_billing_address_to_customer_address_book = checkout.order._save_billing_address_to_customer_address_book
 
   const [firstName, setFirstName] = useState(checkout.order.billing_address.first_name)
   const [lastName, setLastName] = useState(checkout.order.billing_address.last_name)
@@ -48,7 +47,6 @@ export default function BillingAddressFields() {
     const index = _.findIndex(countries, { code: countryCode })
     if (index >= 0) {
       setCountryIndex(index) 
-      // setHasState(hasStateCheck(index))  
     }
     updateShipToDifferentAddressRequired()
     validate()
@@ -126,11 +124,7 @@ export default function BillingAddressFields() {
       const index = _.findIndex(countries, { code: v.code })
       if (index >= 0) {
         setCountryIndex(index) 
-        // setHasState(hasStateCheck(index))
         setStateCode('')
-        // let errors_tmp = {...errors}
-        // errors_tmp['stateCode'] = ""
-        // setErrors(errors_tmp)
       }
       updateShipToDifferentAddressRequired()
     }
@@ -140,11 +134,6 @@ export default function BillingAddressFields() {
     validate()
   
   }
-
-  // const changeState = (e, v, r) => {
-  //   if ( v ) setStateCode(v)
-  //   validate()
-  // }
 
   const validate = () => {
     if ( firstName && lastName && line_1 && city && zipCode && countryCode && stateCode && phone ) {
@@ -165,19 +154,8 @@ export default function BillingAddressFields() {
       state_code: stateCode,
       phone: phone
     }
-    // console.log(billing_address, 'billing_validate')
     dispatch({ type: UPDATE_BILLING_ADDRESS, payload: billing_address})
   }
-
-  // const hasStateCheck = (index) => {
-  //   const hasStateFlag = !(
-  //     _.isEmpty(countries[index]) ||
-  //     _.isEmpty(countries[index].states)
-  //   )
-  //   if (hasStateCheck) setStates(countries[index].states)
-  //   else setStates([])
-  //   return hasStateFlag
-  // }
 
   return (
     <>

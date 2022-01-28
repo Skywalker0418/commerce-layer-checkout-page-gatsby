@@ -19,7 +19,7 @@ import CustomerStep from '../components/steps/CustomerStep'
 import DeliveryStep from '../components/steps/DeliveryStep'
 import PaymentStep from '../components/steps/PaymentStep'
 
-import {UPDATE_CHANGE_STEP} from '../redux/constants/checkoutConstants'
+import {UPDATE_CURRENT_STEP} from '../redux/constants/checkoutConstants'
 
 const useStyles = makeStyles(theme => ({
   stepperContainer: {
@@ -48,10 +48,10 @@ export default function Checkout() {
   // const checkout = useSelector(state => state.checkout)
   const requires_payment = useSelector(state => state.checkout.requires_payment)
   
-  useEffect(() => {
-    // console.log(current_step)
-    console.log(current_step, order)
-  },[dispatch, order, current_step])
+  // useEffect(() => {
+  //   // console.log(current_step)
+  //   console.log(current_step, order)
+  // },[dispatch, order, current_step])
 
   const handleNext = () => {
     // setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -61,7 +61,7 @@ export default function Checkout() {
     if ( current_step === step ) {
       return
     }
-    dispatch({ type: UPDATE_CHANGE_STEP, payload: 1 })
+    dispatch({ type: UPDATE_CURRENT_STEP, payload: step })
   }
 
   const handleBack = () => {
@@ -80,6 +80,7 @@ export default function Checkout() {
     return current_step - 1 > step
   }
 
+
   return (
     <Box className={classes.stepperContainer}>
       <Stepper activeStep={current_step-1} orientation="vertical" >
@@ -90,14 +91,14 @@ export default function Checkout() {
               )}
             >
               <div onClick={() => changeStep(1)}>
-            { 'Customer' }
+            { 'Customer ' }
             {
               !completed(0) ? 
                 '' : 
                 (
                   <span >
                     &mdash;
-                    <a>Edit</a>
+                    &nbsp;<a>edit</a>
                   </span>
                 )             
             }
@@ -116,17 +117,20 @@ export default function Checkout() {
                   <Typography variant="caption">{'Shipment summary and delivery methods'}</Typography>
               )}
             >
-            { 'Delivery' }
+              <div onClick={() => changeStep(2)}>
+
+            { 'Delivery ' }
             {
               !completed(1) ? 
                 '' : 
                 (
                   <span>
-                    &mdash;
-                    <a>Edit</a>
+                    &mdash;&nbsp;
+                    <a>edit</a>
                   </span>
                 )             
             }
+              </div>
           </StepLabel>
           <StepContent className={classes.StepContent}>
             <DeliveryStep completed = { completed(1)  && current_step > 2 } order= {order} />
@@ -134,8 +138,8 @@ export default function Checkout() {
         </Step>) : (<></>)
         }
         
-        
-        <Step key='PaymentStep' active={ current_step - 1 === paymentStep } completed={ completed(paymentStep) }>
+       { requires_payment &&
+        <Step key='PaymentStep' active={ current_step - 1 === ( requires_payment ? 2 : 1 ) } completed={ false } >
           <StepLabel
               optional={(
                   <Typography variant="caption">{'Payment method and order confirmation'}</Typography>
@@ -144,11 +148,10 @@ export default function Checkout() {
               { 'Payment' }
           </StepLabel>
           <StepContent className={classes.StepContent}>
-            <div>123</div>
-            <div>234</div>
+            <PaymentStep step={paymentStep()}/>
           </StepContent>
         </Step>
-
+      }
       </Stepper>      
     </Box>
   );

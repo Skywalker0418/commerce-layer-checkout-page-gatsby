@@ -13,7 +13,7 @@ import BillingAddressFields from "../fields/BillingAddressFields";
 import ShippingAddressFields from "../fields/ShippingAddressFields";
 import AddressSummary from "../summaries/AddressSummary";
 
-import {UPDATE_CHANGE_STEP,UPDATE_BUTTON_LOADING_CUSTOMER, UPDATE_ERROR_SET_ADDRESSES} from '../../redux/constants/checkoutConstants';
+import {UPDATE_CURRENT_STEP,UPDATE_BUTTON_LOADING_CUSTOMER, UPDATE_ERROR_SET_ADDRESSES} from '../../redux/constants/checkoutConstants';
 import { setOrderAddresses } from "../../redux/actions/checkoutAction";
 
 export default function CustomerStep() {
@@ -39,11 +39,8 @@ export default function CustomerStep() {
           (!_shipping_address_clone_id &&
             invalid_shipping_address)
         )
-        setDisabled(disabled_flag)
-        
+        setDisabled(disabled_flag)        
     }, [invalid_customer, _billing_address_clone_id, invalid_billing_address, _shipping_address_clone_id, invalid_shipping_address])
-    
-    console.log("state ====. ", checkoutOrder)
 
     const handleSubmit = () => {     
         setLoadingCustomer(true)
@@ -58,7 +55,7 @@ export default function CustomerStep() {
     }        
 
     const nextStep = () => {
-        dispatch({type:UPDATE_CHANGE_STEP, payload: 2})
+        dispatch({type:UPDATE_CURRENT_STEP, payload: 2})
     }
 
     return !completed ? (

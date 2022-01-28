@@ -6,6 +6,7 @@ import {
 } from "@mui/material"
 import { makeStyles } from '@mui/styles';
 import Checkout from '../views/Checkout'
+import Confirmation from '../views/Confirmation'
 import OrderSummary from '../components/summaries/OrderSummary'
 
 import { useDispatch, useSelector } from "react-redux"
