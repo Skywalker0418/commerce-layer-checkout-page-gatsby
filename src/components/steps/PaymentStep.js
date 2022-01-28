@@ -95,41 +95,43 @@ export default function PaymentStep({step}) {
   	console.log('submit')
   }
   return (
-  	<FormControl fullWidth>
-      <RadioGroup
-        aria-labelledby="demo-radio-buttons-group-label"
-        name="radio-buttons-group"
-        value={selected_payment_option_component}
-        onChange={handleChange}
-      >
-      {
-        availablePaymentOptions().map((payment_option, index) => 
-        	renderChild(payment_option)
-        )
-      }
-      </RadioGroup>
-      <Grid container spacing={3}>
-           <Grid item xs={12} sm={6}>
-		      <LoadingButton
-		            loading={checkout.buttons.loading_delivery}
-		            variant="contained"
-		            disabled = {checkout.validations.invalid_payment_method}
-		            onClick={()=>handleSubmit()}
-		            fullWidth
-		        >
-		            Place order
-		        </LoadingButton>
-        	</Grid>
-        </Grid>
-
-        <div
-	        className="order-error"
-	        id="place-order-error"
-	        style={{display: (checkout.errors.place_order?'block':'none') }}
+	  <div>
+	  	<FormControl fullWidth>
+	      <RadioGroup
+	        aria-labelledby="demo-radio-buttons-group-label"
+	        name="radio-buttons-group"
+	        value={selected_payment_option_component}
+	        onChange={handleChange}
 	      >
-	        { checkout.errors.place_order }
-	      </div>
-    </FormControl>
+	      {
+	        availablePaymentOptions().map((payment_option, index) => 
+	        	renderChild(payment_option)
+	        )
+	      }
+	      </RadioGroup>
+	    </FormControl>
+	    <Grid container spacing={3}>
+			<Grid item xs={12} sm={6}>
+			  <LoadingButton
+			        loading={checkout.buttons.loading_delivery}
+			        variant="contained"
+			        disabled = {checkout.validations.invalid_payment_method}
+			        onClick={()=>handleSubmit()}
+			        fullWidth
+			    >
+			        Place order
+			    </LoadingButton>
+			</Grid>
+		</Grid>
+
+		<div
+			className="order-error"
+			id="place-order-error"
+			style={{display: (checkout.errors.place_order?'block':'none') }}
+			>
+			{ checkout.errors.place_order }
+		</div>
+	  </div>
   )
 }
 

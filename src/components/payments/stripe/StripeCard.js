@@ -45,13 +45,16 @@ const StripeCard = ({payment_option}) => {
 
     const paymentSourceAttributes = () => {
       return {}
+      // return {
+      //   stripe_id: '',
+      //   client_secret: ''
+      // }
     }
     const setPaymentMethod = () => {
       let payload = {
         order: checkout.order,
         paymentMethod: payment_option.payment_method
       }
-      console.log(payload)
       dispatch({type:UPDATE_BUTTON_LOADING_PAYMENT, payload:true})
       
       dispatch(setOrderPaymentMethod(payload)).then(() => {
@@ -63,7 +66,6 @@ const StripeCard = ({payment_option}) => {
             setupPayment()
           })
           .catch(error => {
-          	console.log(error)
             handlePaymentSourceError(error)
           })
       })
@@ -141,8 +143,9 @@ const StripeCard = ({payment_option}) => {
 	useEffect(() => {
 		if(selected_payment_option_component === 'StripeCard') {
 			setPaymentMethod()		
+			// setupPayment()
 		}
-	})
+	},[selected_payment_option_component])
 
 
 	return (

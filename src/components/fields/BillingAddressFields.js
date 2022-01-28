@@ -244,26 +244,7 @@ export default function BillingAddressFields() {
           )}
         />
       </Grid>                   
-      {/* { hasState && (<Grid item xs={12} sm={6}>
-        <Autocomplete
-          required
-          id="billing-address-state-code"
-          fullWidth
-          options={states}
-          value={stateCode}
-          onInputChange={changeState}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              label="State Code"
-              error = {errorMessages('stateCode') ? true : false}
-              helperText={errorMessages('stateCode')}        
-            />
-          )}
-        />
-      </Grid>)} */}
-      { 1 && (<Grid item xs={12} sm={6}>
+      <Grid item xs={12} sm={6}>
         <TextField
           required
           id="billing-address-state-code"
@@ -279,7 +260,7 @@ export default function BillingAddressFields() {
           error = {errorMessages('stateCode') ? true : false}
           helperText={errorMessages('stateCode')}        
         />
-      </Grid>)}
+      </Grid>
       <Grid item xs={12} sm={6}>
         <TextField
           required
@@ -312,38 +293,6 @@ export default function BillingAddressFields() {
           helperText={errorMessages('phone')} 
         />
       </Grid>
-
-      {/* <Grid item xs={12} sm={6}>
-        <TextField
-          required
-          id="billing-address-billing-info"
-          name="billing_info"
-          label="Billing Info"
-          fullWidth
-          autoComplete=""
-          variant="standard"
-          value = {billing_info}
-          onInput = {handleInput}
-          onBlur = {(e) => handleBlur(e, 'billing_info')}
-          error = {errorMessages('billing_info') ? true : false}
-          helperText={errorMessages('billing_info')} 
-        />
-      </Grid> */}
-      {/* <Grid item xs={12} sm={6}>
-        <Checkbox
-          required
-          id="billing-address-billing-info"
-          name="billing_info"
-          label="billing info"
-          fullWidth
-          autoComplete=""
-          variant="standard"
-          // value = {billing_info}
-          // onChange={}
-          error = {errorMessages('billing_info') ? true : false}
-          helperText={errorMessages('billing_info')} 
-        />
-      </Grid> */}
     </>
   )
 }

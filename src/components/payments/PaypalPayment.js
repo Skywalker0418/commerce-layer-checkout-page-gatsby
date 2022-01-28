@@ -103,7 +103,7 @@ const PaypalPayment = ({payment_option}) => {
 		if(selected_payment_option_component === 'PaypalPayment') {
 			setPaymentMethod()		
 		}
-	})
+	},[selected_payment_option_component])
 
 	return (
 		<div className='payment-method'>

@@ -211,31 +211,26 @@ export const checkoutReducer = (state = initialState, action) => {
         ...state,
         validations: {...validations, invalid_billing_address: action.payload}
       }
-      break
     case UPDATE_INVALID_SHIPPING_ADDRESS:
       return {
         ...state,
         validations: {...validations, invalid_shipping_address: action.payload}
       }
-      break
     case UPDATE_INVALID_CUSTOMER:
       return {
         ...state,
         validations: {...validations, invalid_customer: action.payload}
       }
-      break
     case UPDATE_BILLING_ADDRESS:
       return {
         ...state,
         order: {...state.order, billing_address: {...state.order.billing_address, ...action.payload}}
       }
-      break
     case UPDATE_SHIPPING_ADDRESS:
       return {
         ...state,
         order: {...state.order, shipping_address: {...state.order.shipping_address, ...action.payload}}
       }
-      break
     case UPDATE_GIFTCARD_OR_COUPON_CODE:
       return {
         ...state,
@@ -246,26 +241,22 @@ export const checkoutReducer = (state = initialState, action) => {
         ...state,
         errors: {...errors, apply_gift_card_or_coupon: action.payload}
       }
-      break
     case UPDATE_ERROR_SET_ADDRESSES:
       return {
         ...state,
         errors: {...errors, set_addresses: action.payload}
       }
-      break
     case UPDATE_SHIP_TO_DIFFERENT_ADDRESS_REQUIRED:
       return {
         ...state,
         order: {...state.order, ship_to_different_address_required: action.payload}
       }
-      break 
     case UPDATE_SHIP_TO_DIFFERENT_ADDRESS:
       // console.log('dispatch event: ship_to_different_address', action.payload)
       return {
         ...state,
         order: {...state.order, ship_to_different_address: action.payload}
       }
-      break 
     case UPDATE_INVALID_SHIPMENTS:
       // console.log({
       //   ...state,
@@ -275,13 +266,11 @@ export const checkoutReducer = (state = initialState, action) => {
         ...state,
         validations: {...state.validations, invalid_shipments: action.payload}
       }
-      break 
     case UPDATE_INVALID_PAYMENT_METHOD:
       return {
         ...state,
         validations: {...state.validations, invalid_payment_method: action.payload}
       }
-      break 
     case UPDATE_PAYMENT_OPTION:
       return {
         ...state, selected_payment_option_component: action.payload

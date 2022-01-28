@@ -9,8 +9,6 @@ import Checkbox from '@mui/material/Checkbox';
 import { setOrderCustomerEmail, handleCustomerSubscription } from '../../redux/actions/checkoutAction'; 
 import { UPDATE_CUSTOMER_EMAIL, UPDATE_CUSTOMER_SUBSCRIPTION_CHECKED, UPDATE_INVALID_BILLING_ADDRESS, UPDATE_INVALID_CUSTOMER } from '../../redux/constants/checkoutConstants';
 
-// import { makeStyles } from '@mui/styles';
-
 import { useDispatch, useSelector } from "react-redux";
 
 export default function CustomerStep() {
