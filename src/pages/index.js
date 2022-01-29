@@ -14,6 +14,9 @@ export default function Home({ location }) {
       <Container className={"main"} maxWidth={false}>
         <Router>
           <Main path="/:order_id" />
+          <Main path="/:order_id/paypal" payment_method={"paypal"}/>
+          <Main path="/:order_id/adyen" payment_method={"adyen"}/>
+          <Main path="/:order_id/confirmation" confirmation={true}/>
         </Router>
       </Container>
     )

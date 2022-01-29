@@ -28,6 +28,9 @@ import {
   getRequiresPayment
 } from '../../utils/functions'
 
+
+import { navigate } from "gatsby"
+
 import NProgress from 'nprogress'
 
 export const setOrder = orderId => async (dispatch) => {
@@ -202,7 +205,7 @@ export const placeOrder = () => async (dispatch, getState) => {
           dispatch({ type: UPDATE_ORDER, payload: order })
           // commit('updateOrder', order)
           // trackPurchase(order)
-
+          navigate(`/${order.id}/confirmation`)
           // router.push({
           //   name: 'confirmation',
           //   params: {

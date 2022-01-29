@@ -44,11 +44,11 @@ const StripeCard = ({payment_option}) => {
     }
 
     const paymentSourceAttributes = () => {
-      return {}
-      // return {
-      //   stripe_id: '',
-      //   client_secret: ''
-      // }
+      // return {}
+      return {
+        // stripe_id: 'strip_id',
+        // client_secret: 'sk_test_xxx'
+      }
     }
     const setPaymentMethod = () => {
       let payload = {

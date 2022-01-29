@@ -9,7 +9,12 @@ import Checkout from '../views/Checkout'
 import Confirmation from '../views/Confirmation'
 import OrderSummary from '../components/summaries/OrderSummary'
 
+import { updateOrderPaymentSource, placeOrder } from '../redux/actions/checkoutAction';
+
 import { useDispatch, useSelector } from "react-redux"
+
+import { navigate } from "gatsby"
+
 
 const useStyles = makeStyles(theme => ({
   header: {
@@ -17,14 +22,53 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-
-
-const Main = ({ order_id, location }) => {
-  
+const Main = ({ order_id, payment_method, confirmation, location }) => {
   const dispatch = useDispatch()
-
   const [isLoading, setIsLoading] = useState(false)
-  
+  const query = new URLSearchParams(window.location.search); 
+  if (payment_method === 'paypal') {
+    
+    let paymentSourceAttributes = {
+      paypal_payer_id: query.get('PayerID')
+    } 
+    dispatch(updateOrderPaymentSource(paymentSourceAttributes))
+        .then(() => {
+          dispatch(placeOrder())
+        })
+        .catch(error => {
+          console.log(error)
+          navigate(`/${order_id}`)
+        })
+  } 
+  else if(payment_method === 'adyen') {
+    const paymentSourceAttributes = {
+        payment_request_details: {
+          details: {
+            MD: query.get('MD'),
+            PaRes: query.get('PaRes')
+          }
+        },
+        _details: true
+      }
+      dispatch(updateOrderPaymentSource(paymentSourceAttributes))
+        .then(res => {
+          if (res.payment_response.resultCode === 'Authorised') {
+            dispatch(placeOrder())
+          } else {
+            console.log(
+              'payment resultCode --- ',
+              res.payment_response.resultCode
+            )
+            navigate(`/${order_id}`)
+          }
+        })
+        .catch(error => {
+          console.log(error)
+          navigate(`/${order_id}`)
+        })
+  } 
+
+
   useEffect(() => {
     dispatch(setOrder(order_id)).then(response => {
         if ( response ) setIsLoading(true)
@@ -44,7 +88,15 @@ const Main = ({ order_id, location }) => {
               />
             </Grid>
           </Grid>
-          <Grid item xs={12} md={7} order={{ xs: 3, md: 2 }}><Checkout/></Grid>
+          <Grid item xs={12} md={7} order={{ xs: 3, md: 2 }}>
+          { !confirmation &&
+            <Checkout/> 
+          }
+          {
+            confirmation &&
+            <Confirmation/>
+          }
+          </Grid>
           <Grid item xs={12} md={5} order={{ xs: 2, md: 3 }}><OrderSummary/></Grid>        
         </Grid>
     )
@@ -55,7 +107,7 @@ const Main = ({ order_id, location }) => {
   return (
      <Container id="layout" maxWidth={false}>
       { 
-        isLoading ? <MainContainer/> : <div>   </div>
+        isLoading ? <MainContainer/> : <div></div>
       }
     </Container>
   )

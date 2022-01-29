@@ -91,9 +91,9 @@ export default function PaymentStep({step}) {
   	setPaymentOptionComponent(v)
   	dispatch({type: UPDATE_PAYMENT_OPTION, payload: v})
   }
-  const handleSubmit = () => {
-  	console.log('submit')
-  }
+  // const handleSubmit = () => {
+  // 	console.log('submit')
+  // }
   return (
 	  <div>
 	  	<FormControl fullWidth>
@@ -116,8 +116,8 @@ export default function PaymentStep({step}) {
 			        loading={checkout.buttons.loading_delivery}
 			        variant="contained"
 			        disabled = {checkout.validations.invalid_payment_method}
-			        onClick={()=>handleSubmit()}
 			        fullWidth
+			        id="payment-step-submit"
 			    >
 			        Place order
 			    </LoadingButton>
