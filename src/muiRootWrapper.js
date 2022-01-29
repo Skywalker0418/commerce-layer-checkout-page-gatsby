@@ -5,7 +5,8 @@ import store from "./redux/store"
 
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import Layout from "./components/Layout"
+
+
 
 // A custom theme for this app
 const theme = createTheme({
@@ -32,7 +33,7 @@ export default ({ element }) => {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Layout>{element}</Layout>
+        
       </ThemeProvider>
     </Provider>
   )
