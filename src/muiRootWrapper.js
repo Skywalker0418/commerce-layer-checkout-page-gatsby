@@ -7,9 +7,7 @@ import { CssBaseline } from "@material-ui/core"
 import { ThemeProvider } from "@material-ui/core/styles"
 import { createTheme } from "@material-ui/core/styles"
 
-// import CssBaseline from '@mui/material/CssBaseline';
-// import { ThemeProvider } from '@mui/material/styles';
-// import { createTheme } from '@mui/material/styles';
+
 
 import Layout from "./components/Layout"
 
