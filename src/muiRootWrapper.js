@@ -3,9 +3,8 @@ import React from "react"
 import { Provider } from "react-redux"
 import store from "./redux/store"
 
-import { CssBaseline } from "@material-ui/core"
-import { ThemeProvider } from "@material-ui/core/styles"
-import { createTheme } from "@material-ui/core/styles"
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 
 
